@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christliche Gemeinde Stadtheide</title>
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Platzhalter für Hintergrundbild - ersetze mit deinem Bild */
+            background-image: url('images/hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Fallback Farbe falls kein Bild vorhanden */
+            background-color: #333333;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+        }
+
+        .logo {
+            /* Platzhalter für Logo */
+            width: 120px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-placeholder {
+            border: 2px dashed rgba(255, 255, 255, 0.6);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            cursor: pointer;
+            z-index: 1000;
+            padding: 10px;
+        }
+
+        .burger-icon {
+            width: 32px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .burger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 999;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px;
+        }
+
+        .menu-overlay.active {
+            right: 0;
+        }
+
+        .menu-overlay nav ul {
+            list-style: none;
+        }
+
+        .menu-overlay nav ul li {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.4s ease;
+        }
+
+        .menu-overlay.active nav ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .menu-overlay.active nav ul li:nth-child(1) { transition-delay: 0.1s; }
+        .menu-overlay.active nav ul li:nth-child(2) { transition-delay: 0.2s; }
+        .menu-overlay.active nav ul li:nth-child(3) { transition-delay: 0.3s; }
+        .menu-overlay.active nav ul li:nth-child(4) { transition-delay: 0.4s; }
+
+        .menu-overlay nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .menu-overlay nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .menu-overlay nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Slogan */
+        .hero-slogan {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+        }
+
+        .hero-slogan h1 {
+            color: #ffffff;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 3px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 2px;
+            animation: scrollDown 1.5s ease infinite;
+        }
+
+        @keyframes scrollDown {
+            0%, 100% { opacity: 1; top: 8px; }
+            50% { opacity: 0.3; top: 20px; }
+        }
+
+        /* ==================== CONTENT SECTION ==================== */
+        .content-section {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Platzhalter für Hintergrundbild */
+            background-image: url('images/content-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #666666;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+        }
+
+        .content-card {
+            grid-column: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 48px;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateX(-30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .content-card.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .content-card h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: #000000;
+            position: relative;
+        }
+
+        .content-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #000000;
+        }
+
+        .content-card ul {
+            list-style: none;
+        }
+
+        .content-card ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333333;
+        }
+
+        .content-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: #000000;
+            border-radius: 50%;
+        }
+
+        .content-card ul li a {
+            color: #000000;
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-card ul li a:hover {
+            opacity: 0.7;
+        }
+
+        /* ==================== TERMINE SECTION ==================== */
+        .termine-section {
+            padding: 100px 48px;
+            background: #ffffff;
+        }
+
+        .termine-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 64px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #000000;
+        }
+
+        .termine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .termin-card {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .termin-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+        }
+
+        .termin-date {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666666;
+            margin-bottom: 12px;
+        }
+
+        .termin-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .termin-description {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .termine-placeholder {
+            text-align: center;
+            padding: 64px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            color: #999999;
+            border: 2px dashed #ddd;
+        }
+
+        /* ==================== FAQ SECTION ==================== */
+        .faq-section {
+            padding: 100px 48px;
+            background: #f5f5f5;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-list {
+            margin-top: 48px;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px 32px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: #000000;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon::before {
+            width: 16px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 32px 24px 32px;
+            color: #555555;
+            line-height: 1.8;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: #000000;
+            padding: 48px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                padding: 60px 32px;
+            }
+
+            .content-card {
+                grid-column: 1;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 20px 24px;
+            }
+
+            .hero-slogan {
+                padding: 24px;
+            }
+
+            .content-card {
+                padding: 32px;
+            }
+
+            .termine-section,
+            .faq-section {
+                padding: 64px 24px;
+            }
+
+            .faq-question {
+                padding: 20px 24px;
+                font-size: 16px;
+            }
+
+            .faq-answer-content {
+                padding: 0 24px 20px 24px;
+            }
+
+            .footer-content {
+                gap: 24px;
+            }
+
+            .footer-divider {
+                display: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-overlay {
+                max-width: 100%;
+                padding: 32px;
+            }
+
+            .menu-overlay nav ul li a {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <!-- Navigation -->
+            <header class="nav-container">
+                <div class="logo">
+                    <!-- Logo hier einfügen: <img src="images/logo.png" alt="Logo"> -->
+                    <div class="logo-placeholder">LOGO</div>
+                </div>
+                
+                <div class="burger-menu" id="burgerMenu">
+                    <div class="burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Slogan -->
+            <div class="hero-slogan">
+                <h1>Lasset euch versöhnen mit Gott</h1>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay">
+            <nav>
+                <ul>
+                    <li><a href="#gottesdienst">Gottesdienst</a></li>
+                    <li><a href="#gemeinde">Gemeinde</a></li>
+                    <li><a href="#mediathek">Mediathek</a></li>
+                    <li><a href="#ueber-uns">Über uns</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ==================== CONTENT SECTION ==================== -->
+    <section class="content-section">
+        <div class="content-background"></div>
+        <div class="content-overlay"></div>
+        
+        <div class="content-wrapper">
+            <div class="content-card" id="contentCard">
+                <h2>Wir laden Sie ein:</h2>
+                <ul>
+                    <li>Unsere Gemeinde näher kennenzulernen.</li>
+                    <li>Gemeinsam Zeit zu verbringen.</li>
+                    <li>Mehr über das Wort Gottes zu erfahren.</li>
+                    <li>An unseren Veranstaltungen teilzunehmen.</li>
+                    <li>An unseren Gottesdiensten teilzunehmen.<br>
+                        Unsere Gottesdienste können Sie auch per Livestream verfolgen: 
+                        <a href="http://live.cg-stadtheide.de" target="_blank" rel="noopener">live.cg-stadtheide.de</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TERMINE SECTION ==================== -->
+    <section class="termine-section" id="termine">
+        <div class="termine-container">
+            <h2 class="section-title">Termine / Veranstaltungen</h2>
+            
+            <div class="termine-grid">
+                <!-- Platzhalter für Termine -->
+                <div class="termin-card">
+                    <div class="termin-date">Datum eintragen</div>
+                    <h3 class="termin-title">Veranstaltung 1</h3>
+                    <p class="termin-description">Beschreibung der Veranstaltung hier einfügen.</p>
+                </div>
+                
+                <div class="termin-card">
+                    <div class="termin-date">Datum eintragen</div>
+                    <h3 class="termin-title">Veranstaltung 2</h3>
+                    <p class="termin-description">Beschreibung der Veranstaltung hier einfügen.</p>
+                </div>
+                
+                <div class="termin-card">
+                    <div class="termin-date">Datum eintragen</div>
+                    <h3 class="termin-title">Veranstaltung 3</h3>
+                    <p class="termin-description">Beschreibung der Veranstaltung hier einfügen.</p>
+                </div>
+            </div>
+
+            <!-- Alternative: Platzhalter wenn noch keine Termine -->
+            <!--
+            <div class="termine-placeholder">
+                <p>Hier werden bald unsere Termine und Veranstaltungen angezeigt.</p>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <h2 class="section-title">Häufige Fragen</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kann man bei euch Parken?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ja, wir haben für ausreichend Parkplätze auf unserem Gelände gesorgt.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Gibt es auch Veranstaltungen für Kinder?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Wir haben über das Jahr verteilt zahlreiche Events für Kinder bieten aber auch wöchentliche Treffen an wo sich Ihre Kinder mit anderen treffen können und neue Freundschaften bilden können.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Muss man bei euch Mitgliedsbeiträge bezahlen?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Nein, wir verlangen keine Mitgliedsbeiträge um an unseren Gottesdiensten teilzunehmen. Es steht jedoch jedem frei, sich mit einer Spende bei uns einzubringen.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Darf ich auch Freunde mitbringen?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ja, wir freuen uns immer über neue Leute und werden sie herzlich empfangen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#impressum" class="footer-link">Impressum</a>
+            <div class="footer-divider"></div>
+            <a href="#kontakt" class="footer-link">Kontakt</a>
+            <div class="footer-divider"></div>
+            <a href="#datenschutz" class="footer-link">Datenschutzerklärung</a>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== BURGER MENU ====================
+        const burgerMenu = document.getElementById('burgerMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking on a link
+        menuOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                burgerMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ==================== SCROLL ANIMATIONS ====================
+        const contentCard = document.getElementById('contentCard');
+
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        if (contentCard) {
+            observer.observe(contentCard);
+        }
+
+        // ==================== FAQ ACCORDION ====================
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ==================== PARALLAX EFFECT (subtle) ====================
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBackground = document.querySelector('.hero-background');
+            
+            if (heroBackground && scrolled < window.innerHeight) {
+                heroBackground.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+
+</body>
+</html>
