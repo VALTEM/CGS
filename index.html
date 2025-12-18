@@ -151,6 +151,45 @@
             padding: 48px;
         }
 
+        /* Menu Close Button */
+        .menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .menu-close::before,
+        .menu-close::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 28px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-close::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .menu-close::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        .menu-close:hover::before,
+        .menu-close:hover::after {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
         .menu-overlay.active {
             right: 0;
         }
@@ -701,6 +740,7 @@
 
         <!-- Menu Overlay -->
         <div class="menu-overlay" id="menuOverlay">
+            <button class="menu-close" id="menuClose" aria-label="Menü schließen"></button>
             <nav>
                 <ul>
                     <li><a href="#gottesdienst">Gottesdienst</a></li>
@@ -841,6 +881,14 @@
         // ==================== BURGER MENU ====================
         const burgerMenu = document.getElementById('burgerMenu');
         const menuOverlay = document.getElementById('menuOverlay');
+        const menuClose = document.getElementById('menuClose');
+
+        // Function to close the menu
+        function closeMenu() {
+            burgerMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
         burgerMenu.addEventListener('click', () => {
             burgerMenu.classList.toggle('active');
@@ -848,21 +896,18 @@
             document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
         });
 
+        // Close menu when clicking the X button
+        menuClose.addEventListener('click', closeMenu);
+
         // Close menu when clicking on a link
         menuOverlay.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                burgerMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // Close menu with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-                burgerMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
+                closeMenu();
             }
         });
 
