@@ -495,6 +495,114 @@
             border: 2px dashed #ddd;
         }
 
+        /* ==================== REGELMÄSSIGE VERANSTALTUNGEN SECTION ==================== */
+        .regelmaessig-section {
+            padding: 100px 48px;
+            background: #f5f5f5;
+        }
+
+        .regelmaessig-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .events-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .events-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .events-table td {
+            padding: 20px 24px;
+            vertical-align: top;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .events-table td:first-child {
+            font-weight: 600;
+            color: #000000;
+            width: 30%;
+        }
+
+        .events-table td:nth-child(2) {
+            color: #333333;
+            width: 25%;
+        }
+
+        .events-table td:nth-child(3) {
+            color: #333333;
+            width: 15%;
+        }
+
+        .events-table td:nth-child(4) {
+            color: #666666;
+            width: 30%;
+        }
+
+        .events-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .regelmaessig-section {
+                padding: 64px 24px;
+            }
+
+            .events-table td {
+                padding: 16px;
+                font-size: 14px;
+            }
+
+            .events-table td:first-child {
+                width: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .events-table,
+            .events-table tbody,
+            .events-table tr,
+            .events-table td {
+                display: block;
+            }
+
+            .events-table tr {
+                padding: 16px;
+                margin-bottom: 16px;
+                background: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            .events-table td {
+                padding: 4px 0;
+                width: 100% !important;
+                border: none;
+            }
+
+            .events-table td:first-child {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .events-table td:nth-child(4) {
+                margin-top: 8px;
+                font-style: italic;
+            }
+        }
+
         /* ==================== FAQ SECTION ==================== */
         .faq-section {
             padding: 100px 48px;
@@ -809,6 +917,90 @@
                 <p>Hier werden bald unsere Termine und Veranstaltungen angezeigt.</p>
             </div>
             -->
+        </div>
+    </section>
+
+    <!-- ==================== REGELMÄSSIGE VERANSTALTUNGEN SECTION ==================== -->
+    <section class="regelmaessig-section" id="regelmaessig">
+        <div class="regelmaessig-container">
+            <h2 class="section-title">Regelmäßige Veranstaltungen</h2>
+
+            <table class="events-table">
+                <tbody>
+                    <tr>
+                        <td>Gottesdienst</td>
+                        <td>Sonntag</td>
+                        <td>10:00 Uhr</td>
+                        <td>Gemeindehaus Saal</td>
+                    </tr>
+                    <tr>
+                        <td>Rumänischer Gottesdienst</td>
+                        <td>Sonntag</td>
+                        <td>17:00 Uhr</td>
+                        <td>Gemeindehaus Keller</td>
+                    </tr>
+                    <tr>
+                        <td>Gebetstreffen</td>
+                        <td>1. Sonntag im Monat</td>
+                        <td>16:00 Uhr</td>
+                        <td>Gemeindehaus Saal</td>
+                    </tr>
+                    <tr>
+                        <td>Gemeindebibelschule</td>
+                        <td>Montag</td>
+                        <td>19:00 Uhr</td>
+                        <td>Gemeindehaus Keller</td>
+                    </tr>
+                    <tr>
+                        <td>Jugendstunde</td>
+                        <td>Samstag</td>
+                        <td>19:00 Uhr</td>
+                        <td>Begegnungsstätte</td>
+                    </tr>
+                    <tr>
+                        <td>AllTeens</td>
+                        <td>letzter Freitag und erster Dienstag im Monat</td>
+                        <td>18:30 Uhr</td>
+                        <td>Begegnungsstätte</td>
+                    </tr>
+                    <tr>
+                        <td>Teen-Stunden</td>
+                        <td>Dienstag</td>
+                        <td>18:30 Uhr</td>
+                        <td>Begegnungsstätte</td>
+                    </tr>
+                    <tr>
+                        <td>Kinder- und Jungschar-Stunden</td>
+                        <td>Mittwoch</td>
+                        <td>17:30 Uhr</td>
+                        <td>Begegnungsstätte</td>
+                    </tr>
+                    <tr>
+                        <td>Vorschulkinderstunden</td>
+                        <td>Sonntag</td>
+                        <td>ca. 10:30 Uhr<br>(nach Ansage im Gottesdienst)</td>
+                        <td>Gemeindehaus Keller</td>
+                    </tr>
+                    <tr>
+                        <td>Gemeinde-Hauskreise</td>
+                        <td>Donnerstag</td>
+                        <td>19:00 Uhr<br>(oder nach Vereinbarung)</td>
+                        <td>in Privathäusern</td>
+                    </tr>
+                    <tr>
+                        <td>Mitgliederversammlung</td>
+                        <td>3. Sonntag im Monat</td>
+                        <td>16:00 Uhr</td>
+                        <td>Gemeindehaus Saal</td>
+                    </tr>
+                    <tr>
+                        <td>Gemeindechor-Proben</td>
+                        <td>Dienstag</td>
+                        <td>18:30 Uhr</td>
+                        <td>Gemeindehaus Saal</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
