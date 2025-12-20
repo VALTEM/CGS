@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Über uns - Christliche Gemeinde Stadtheide</title>
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* ==================== HEADER SECTION ==================== */
+        .header-section {
+            position: relative;
+            width: 100%;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            background: #000000;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-placeholder {
+            border: 2px dashed rgba(255, 255, 255, 0.6);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            cursor: pointer;
+            z-index: 1000;
+            padding: 10px;
+        }
+
+        .burger-icon {
+            width: 32px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .burger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 999;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px;
+        }
+
+        .menu-overlay.active {
+            right: 0;
+        }
+
+        .menu-overlay nav ul {
+            list-style: none;
+        }
+
+        .menu-overlay nav ul li {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.4s ease;
+        }
+
+        .menu-overlay.active nav ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .menu-overlay.active nav ul li:nth-child(1) { transition-delay: 0.1s; }
+        .menu-overlay.active nav ul li:nth-child(2) { transition-delay: 0.2s; }
+        .menu-overlay.active nav ul li:nth-child(3) { transition-delay: 0.3s; }
+        .menu-overlay.active nav ul li:nth-child(4) { transition-delay: 0.4s; }
+        .menu-overlay.active nav ul li:nth-child(5) { transition-delay: 0.5s; }
+
+        .menu-overlay nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .menu-overlay nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .menu-overlay nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Header Title */
+        .header-title {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+        }
+
+        .header-title h1 {
+            color: #ffffff;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 4px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== CONTENT SECTIONS ==================== */
+        .content-section {
+            padding: 100px 48px;
+        }
+
+        .content-section:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .content-section:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 600;
+            margin-bottom: 48px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #000;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .content-grid.reversed {
+            direction: rtl;
+        }
+
+        .content-grid.reversed > * {
+            direction: ltr;
+        }
+
+        /* Image Card */
+        .image-card {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .content-grid.reversed .image-card {
+            transform: translateX(30px);
+        }
+
+        .image-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .image-wrapper {
+            background: #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 4/3;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border: 2px dashed #ddd;
+            background: #f8f8f8;
+        }
+
+        .image-placeholder span {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        /* Text Content */
+        .text-content {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease;
+        }
+
+        .content-grid.reversed .text-content {
+            transform: translateX(-30px);
+        }
+
+        .text-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .text-content p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .text-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Sub-sections within text */
+        .sub-section {
+            margin-top: 32px;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        /* Stats Box */
+        .stats-box {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #eee;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Full Width Text Section */
+        .full-width-section {
+            padding: 80px 48px;
+            background: #000;
+            color: #fff;
+        }
+
+        .full-width-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .full-width-section .section-title {
+            color: #fff;
+        }
+
+        .full-width-section .section-title::after {
+            background: #fff;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .full-width-section p {
+            font-size: 18px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Belief Cards Grid */
+        .belief-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .belief-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .belief-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .belief-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .belief-card.visible:hover {
+            transform: translateY(-8px);
+        }
+
+        .belief-icon {
+            width: 48px;
+            height: 48px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .belief-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .belief-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        .belief-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: #000000;
+            padding: 48px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .content-grid.reversed {
+                direction: ltr;
+            }
+
+            .image-card {
+                transform: translateY(30px);
+            }
+
+            .text-content {
+                transform: translateY(30px);
+            }
+
+            .stats-box {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 20px 24px;
+            }
+
+            .header-title {
+                padding: 32px 24px;
+            }
+
+            .content-section {
+                padding: 64px 24px;
+            }
+
+            .full-width-section {
+                padding: 64px 24px;
+            }
+
+            .belief-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-box {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .footer-content {
+                gap: 24px;
+                flex-direction: column;
+            }
+
+            .footer-divider {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-overlay {
+                max-width: 100%;
+                padding: 32px;
+            }
+
+            .menu-overlay nav ul li a {
+                font-size: 24px;
+            }
+
+            .text-content p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HEADER SECTION ==================== -->
+    <header class="header-section">
+        <!-- Navigation -->
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/cgs_logo.png" alt="Logo">
+            </a>
+            
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Title -->
+        <div class="header-title">
+            <h1>Über uns</h1>
+            <p class="header-subtitle">ChristenGemeinde Stadtheide</p>
+        </div>
+
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Startseite</a></li>
+                    <li><a href="gottesdienst.html">Gottesdienst</a></li>
+                    <li><a href="#gemeinde">Gemeinde</a></li>
+                    <li><a href="mediathek.html">Mediathek</a></li>
+                    <li><a href="ueber-uns.html">Über uns</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== UNSERE GESCHICHTE ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Unsere Geschichte</h2>
+            
+            <div class="content-grid">
+                <!-- Bild links -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/geschichte.png" alt="Historisches Foto"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>geschichte.png</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text rechts -->
+                <div class="text-content">
+                    <p>Anfang der 1970er-Jahre kamen die ersten Russlanddeutschen in ihre Heimat zurück. Einige Familien ließen sich in Paderborn nieder. Am 12. April 1972 gründeten zwölf Gläubige die erste freikirchliche Aussiedlergemeinde in Deutschland.</p>
+                    
+                    <p>Eine Tauffeier im Jahr 1973 wurde zum sichtbaren Beginn eines stetigen Wachstums. Zunächst versammelten sich die Nachfolger Jesu im Hobbyraum einer Familie in der Erwin-Rommel-Straße in der Stadtheide. Parallel besuchte man sonntags die Gottesdienste der Baptistengemeinde auf dem Ükern. Bereits im Februar 1974 zählte die Gemeinde 42 Mitglieder.</p>
+                    
+                    <p>Am 1. Juni 1974 bekannten sich 20 Täuflinge im Habichtsee bei Paderborn öffentlich zu ihrem Glauben. Weitere Taufen folgten im selben Jahr. Im November 1974 gründete sich die Baptisten Brüdergemeinde Paderborn e. V. mit bereits 70 Mitgliedern.</p>
+                    
+                    <p>1975 konnte eine ehemalige Flugzeughalle in der Abtsbrede 114 erworben und zu einem Gemeindehaus umgebaut werden. Am 14. September 1975 wurde das neue Versammlungshaus feierlich eingeweiht.</p>
+                    
+                    <p>Innerhalb weniger Jahre wuchs die Gemeinde weiter stark an. 1980 ergab sich die Möglichkeit, ein Grundstück am Dr.-Rörig-Damm 105 zu erwerben. In großer gemeinsamer Einsatzbereitschaft entstand dort innerhalb von neun Monaten nahezu vollständig in Eigenleistung ein neues Gemeindezentrum mit rund 1.000 Sitzplätzen, das am 14. Dezember 1980 eingeweiht wurde.</p>
+                    
+                    <p>In den folgenden Jahrzehnten entwickelte sich die Gemeinde weiter. Neue Gebäude, strukturelle Veränderungen und eine wachsende Vielfalt an Arbeitsbereichen prägten diese Zeit. 2008 erfolgte die Umbenennung in ChristenGemeinde Stadtheide e. V.</p>
+
+                    <div class="stats-box">
+                        <div class="stat-item">
+                            <div class="stat-number">1972</div>
+                            <div class="stat-label">Gründungsjahr</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">623</div>
+                            <div class="stat-label">Mitglieder (2019)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1.000</div>
+                            <div class="stat-label">Sitzplätze</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== UNSER GLAUBE ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Unser Glaube</h2>
+            
+            <div class="content-grid reversed">
+                <!-- Text links -->
+                <div class="text-content">
+                    <p>Unser Glaube orientiert sich am apostolischen Glaubensbekenntnis. Wir glauben an den dreieinigen Gott – Gott den Vater, den Sohn Jesus Christus und den Heiligen Geist.</p>
+                </div>
+
+                <!-- Bild rechts -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/glaube.png" alt="Glaube"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>glaube.png</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glaubens-Cards -->
+            <div class="belief-grid">
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3 class="belief-title">Gott</h3>
+                    <p class="belief-text">Wir glauben, dass Gott der Schöpfer von Himmel und Erde ist und sich in der Schöpfung, in Jesus Christus und in der Bibel offenbart hat.</p>
+                </div>
+
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="belief-title">Die Heilige Schrift</h3>
+                    <p class="belief-text">Die Bibel ist für uns das von Gott inspirierte, zuverlässige und verbindliche Wort Gottes. Sie ist die Grundlage für Glauben, Lehre und christliches Leben.</p>
+                </div>
+
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="belief-title">Jesus Christus</h3>
+                    <p class="belief-text">Wir glauben, dass Jesus Christus wahrer Gott und wahrer Mensch ist. Er ist für die Sünden der Menschen gestorben, auferstanden und lebt. Durch ihn ist Versöhnung mit Gott und ewiges Leben möglich.</p>
+                </div>
+
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="belief-title">Der Mensch</h3>
+                    <p class="belief-text">Wir glauben, dass jeder Mensch vor Gott schuldig ist und Rettung allein durch Jesus Christus erfährt. Durch Umkehr, Glauben und Taufe wird dem Menschen ewiges Leben geschenkt.</p>
+                </div>
+
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <h3 class="belief-title">Heiliger Geist, Gemeinde und Vollendung</h3>
+                    <p class="belief-text">Wir glauben an den Heiligen Geist, an die weltweite Gemeinde Jesu Christi, an die Vergebung der Sünden, die Auferstehung der Toten sowie an das ewige Leben und das Gericht Gottes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== UNSER SELBSTVERSTÄNDNIS ==================== -->
+    <section class="full-width-section">
+        <div class="full-width-container">
+            <h2 class="section-title">Unser Selbstverständnis</h2>
+            <p>Wir lehren und leben auf der Grundlage der Bibel. Jesus Christus ist für uns der Weg, die Wahrheit und das Leben. Als evangelische Freikirche verstehen wir uns als Teil der weltweiten Gemeinde Jesu Christi. Wir sind offen für Gemeinschaft mit allen, die Jesus Christus als ihren Herrn und Retter bekennen und die Bibel als Grundlage ihres Glaubens anerkennen.</p>
+        </div>
+    </section>
+
+    <!-- ==================== ORGANISATION & GEMEINDELEBEN ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Organisation & Gemeindeleben</h2>
+            
+            <div class="content-grid">
+                <!-- Bild links -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/gemeindeleben.png" alt="Gemeindeleben"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>gemeindeleben.png</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text rechts -->
+                <div class="text-content">
+                    <p>Die ChristenGemeinde Stadtheide zählt über 600 Mitglieder, die alle durch die Taufe aufgenommen wurden. Die geistliche Leitung liegt bei mehreren Ältesten. Viele Aufgaben und Arbeitsbereiche werden von engagierten Gemeindemitgliedern übernommen.</p>
+                    
+                    <p>Wöchentlich treffen wir uns zu Gottesdiensten, Gebetsstunden und Hauskreisen. In den Gottesdiensten loben wir Gott und hören auf sein Wort, um Orientierung und Hilfe für den Alltag zu finden.</p>
+                    
+                    <p>Die Gemeinde erhebt keine Kirchensteuer. Alle Aktivitäten und Projekte werden durch freiwillige Spenden getragen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIAKONIE ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Diakonie – Dienst am Menschen</h2>
+            
+            <div class="content-grid reversed">
+                <!-- Text links -->
+                <div class="text-content">
+                    <p>Der diakonische Bereich ist in mehrere Teams gegliedert. Diakone unterstützen die Ältesten und übernehmen gemeinsam mit weiteren Mitarbeitenden praktische und organisatorische Aufgaben.</p>
+                    
+                    <p>Dazu gehören unter anderem Besuchsdienste, Gästebetreuung, Bewirtung, Raumgestaltung und -pflege, Fahrdienste, Hausverwaltung, Öffentlichkeitsarbeit sowie der Dienst der Barmherzigkeit und Hilfeleistung. Wir sind dankbar für viele engagierte Menschen, die diesen Dienst mittragen.</p>
+                </div>
+
+                <!-- Bild rechts -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/diakonie.png" alt="Diakonie"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>diakonie.png</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EVANGELISATION ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Evangelisation – Glauben weitergeben</h2>
+            
+            <div class="content-grid">
+                <!-- Bild links -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/evangelisation.png" alt="Evangelisation"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>evangelisation.png</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text rechts -->
+                <div class="text-content">
+                    <p>Wir möchten die gute Nachricht von Jesus Christus nicht für uns behalten. Durch verschiedene Angebote und Aktionen treten wir bewusst in Kontakt mit unserer Umgebung.</p>
+                    
+                    <p>Dazu zählen unter anderem das christliche Café „Lifetime", Evangelisationswochen und Straßeneinsätze. In persönlichen Gesprächen entstehen Beziehungen und neue Begegnungen, durch die Menschen Gott und sein Wort kennenlernen können.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MISSION ==================== -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Mission – weltweit helfen</h2>
+            
+            <div class="content-grid reversed">
+                <!-- Text links -->
+                <div class="text-content">
+                    <p>Wir unterstützen missionarische und soziale Projekte in verschiedenen Ländern, unter anderem in Malawi, Thailand und Mittelasien. Dabei fördern wir Kindertagesstätten, Schulen, Ausbildungsstätten und die Ausbildung von Mitarbeitern.</p>
+                    
+                    <p>Zahlreiche Jugendliche unserer Gemeinde engagieren sich im Freiwilligendienst im Ausland. Auch Kurzzeitmitarbeiter unterstützen Missionare vor Ort. Ziel all dieser Arbeit ist es, praktische Hilfe zu leisten und Menschen Hoffnung und Perspektive zu geben.</p>
+                </div>
+
+                <!-- Bild rechts -->
+                <div class="image-card">
+                    <div class="image-wrapper">
+                        <!-- Bild hier einfügen: <img src="images/mission.png" alt="Mission"> -->
+                        <div class="image-placeholder">
+                            Bild Platzhalter
+                            <span>mission.png</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="impressum.html" class="footer-link">Impressum</a>
+            <div class="footer-divider"></div>
+            <a href="kontakt.html" class="footer-link">Kontakt</a>
+            <div class="footer-divider"></div>
+            <a href="datenschutz.html" class="footer-link">Datenschutzerklärung</a>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== BURGER MENU ====================
+        const burgerMenu = document.getElementById('burgerMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking on a link
+        menuOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                burgerMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ==================== SCROLL ANIMATIONS ====================
+        const animatedElements = document.querySelectorAll('.image-card, .text-content, .belief-card');
+
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
